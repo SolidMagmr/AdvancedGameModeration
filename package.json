@@ -13,6 +13,8 @@
   "author": "Solid",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5"
   }
 }
