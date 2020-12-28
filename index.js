@@ -15,19 +15,123 @@ for (const file of commandFiles) {
 
 const sequelize = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
-	dialect: 'mysql',
-	logging: true,
-	operatorsAliases: false,
+	dialect: 'sqlite',
 	storage: 'database.sqlite'
 });
 
-client.once('ready', () => {
-    console.log('Ready!');
-	client.user.setActivity('For foul language', {type: "WATCHING"});
+const Warns = sequelize.define('warns', {
+	name: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	userID: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	game: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	cycle: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	extra: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	description: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	warnedBy: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
 	
 });
 
+const Mutes = sequelize.define('mutes', {
+	name: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	userID: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	game: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	cycle: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	extra: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	description: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	mutedBy: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	muteDuration: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	
+	
+});
+
+const Bans = sequelize.define('bans', {
+	name: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	userID: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	game: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	cycle: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	},
+	extra: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	description: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	warnedBy: {
+		type: Sequelize.STRING,
+		allowNull: true,
+	},
+	banDuration: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	
+});
+
+
 const cooldowns = new Discord.Collection();
+
+client.once('ready', () => {
+    console.log('Ready!');
+	client.user.setActivity('For bad language', {type: "WATCHING"});
+	
+});
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -75,7 +179,7 @@ client.on('message', message => {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 	try {
-		command.execute(message, args, sequelize);
+		command.execute(message, args, Warns, Mutes, Bans);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');

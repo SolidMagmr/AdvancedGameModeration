@@ -8,6 +8,6 @@ module.exports = {
     guildOnly: true, //Only able to be used in the discord server itself
     usage:'<Name argument here> <Another one here>', //If you want to set an correct usage of the command write them there, to keep everything conform put them between <>
 	execute(message, args) {  //Add code of the command here if you need 'Global' values, add them with a , seperated after the args and do the same in index.js
-		
+		console.log(message + args)
 	},
 };

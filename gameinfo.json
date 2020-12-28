@@ -1,0 +1,14 @@
+{
+	"Games": [
+		{
+			"tablename": "test2",
+			"useCycles": "false",
+			"Cycle": 1
+		},
+		{
+			"tablename": "newgame",
+			"useCycles": "true",
+			"Cycle": 1
+		}
+	]
+}

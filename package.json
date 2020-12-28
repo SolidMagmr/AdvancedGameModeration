@@ -15,6 +15,11 @@
   "dependencies": {
     "discord.js": "^12.5.1",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.3.5"
+    "sequelize": "^5.22.2",
+    "sqlite3": "^5.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
