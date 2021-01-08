@@ -2,6 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, token } = require('./botconfig.json');
 const Sequelize = require('sequelize');
+const Warn = require('./commands/Warn');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -38,7 +39,7 @@ const Warns = sequelize.define('warns', {
 	},
 	extra: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	description: {
 		type: Sequelize.STRING,
@@ -130,6 +131,9 @@ const cooldowns = new Discord.Collection();
 client.once('ready', () => {
     console.log('Ready!');
 	client.user.setActivity('For bad language', {type: "WATCHING"});
+	Warns.sync()
+	Bans.sync()
+	Mutes.sync()
 	
 });
 
