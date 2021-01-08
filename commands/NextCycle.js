@@ -13,6 +13,7 @@ module.exports = {
 
         fs.readFile('./gameinfo.json', 'UTF-8', function(err,data){
             if (err) throw err
+            if (!message.member.hasPermission("KICK_MEMBERS", false, true, false)) return message.channel.send("You do not have the required permissions");
 
             var existing = JSON.parse(data)
             var foundmatch = false
