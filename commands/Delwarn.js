@@ -38,6 +38,7 @@ module.exports = {
 						var discorduser = message.mentions.users.first()
 						var nodesc = 'No description given'
 						warnobject.extra = discorduser.id
+						foundmatch = 'yes'
 
 						const awaitfiltertitle = m=> m.author.id === message.author.id;
 		
