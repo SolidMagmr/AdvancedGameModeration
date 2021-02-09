@@ -17,7 +17,8 @@ for (const file of commandFiles) {
 const sequelize = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
-	storage: 'database.sqlite'
+	storage: 'database.sqlite',
+	logging: false,
 });
 
 const Warns = sequelize.define('warns', {
@@ -114,7 +115,7 @@ const Bans = sequelize.define('bans', {
 		type: Sequelize.STRING,
 		allowNull: true,
 	},
-	warnedBy: {
+	bannedBy: {
 		type: Sequelize.STRING,
 		allowNull: true,
 	},
