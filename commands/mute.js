@@ -157,6 +157,7 @@ module.exports = {
                         
                         Mutes.create(muteobject).then(function(){
                             Mutecommand()
+                            discorduser.send(`You have been muted on the DJWK discord server for "${muteobject.description}" your mute wil last ${muteobject.muteDuration}`)
                             return message.channel.send(`${username} has been succesfully muted by ${message.author.username}`)
                          }).catch(function(err){
                             console.log(err)

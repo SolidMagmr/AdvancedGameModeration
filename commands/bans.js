@@ -11,18 +11,22 @@ module.exports = {
     usage:'Basic form: <@discorduser> (This only works for discord but you **need** to have created a discord object with m!creategame) advanced form: <username> with flags -n <name> -i <UserID> -g <game> -d <description> -e <extra field> -c <cycle>',
 	execute(message, args, Warns, Mutes, Bans) { 
 
-        if (!message.member.hasPermission("KICK_MEMBERS", false, true, false)) return message.channel.send("You do not have the required permissions");
-
-    
-    var totalfilter = args.join(' ')
-    if(!totalfilter) {return message.channel.send(`Atleast one argument must be provided`)}
-    var argv = yargs(totalfilter).argv
+     var totalfilter = args.join(' ')
+     if(totalfilter && !message.member.hasPermission("KICK_MEMBERS", false, true, false)) {return message.channel.send(`You do not have the permissions to view someone else\'s warns`)}
+     var argv = yargs(totalfilter).argv
 
  
 
     var banobject = {
 
     }
+
+    if(!totalfilter){
+        banobject.extra = message.author.id
+        banobject.game = 'discord'
+        banobject.name = message.author.username
+    }
+    
     
     if(argv.i) {
         banobject.userID = argv.i
@@ -100,7 +104,7 @@ module.exports = {
              Bans.findAll({where: banobject}).then(collectedbans => {
              var warnembed = new Discord.MessageEmbed()
                 .setColor('#34b5db')
-                
+                .setTitle(`The bans of user ${banobject.name || banobject.userID}`)
                 .setDescription('Displays all of the bans this user has received')
                 collectedbans.forEach(function(item, index){
                      warnembed.addField(`**Ban nr.${index +1}**`, `On ${item.game} on cycle ${item.cycle} for ${item.banDuration}\n**banned by** ${item.bannedBy} \n**With description:** ${item.description} \n**And extra field of:** ${item.extra} \n**On date:** ${item.createdAt}` )

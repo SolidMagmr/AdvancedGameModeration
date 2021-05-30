@@ -11,17 +11,20 @@ module.exports = {
     usage:'Basic form: <@discorduser> (This only works for discord but you **need** to have created a discord object with m!creategame) advanced form: <username> with flags -n <name> -i <UserID> -g <game> -d <description> -e <extra field> -c <cycle>',
 	execute(message, args, Warns, Mutes) { 
 
-        if (!message.member.hasPermission("KICK_MEMBERS", false, true, false)) return message.channel.send("You do not have the required permissions");
-
-    
     var totalfilter = args.join(' ')
-    if(!totalfilter) {return message.channel.send(`Atleast one argument must be provided`)}
+    if(totalfilter && !message.member.hasPermission("KICK_MEMBERS", false, true, false)) {return message.channel.send(`You do not have the permissions to view someone else\'s warns`)}
     var argv = yargs(totalfilter).argv
 
  
 
     var muteobject = {
 
+    }
+
+    if(!totalfilter){
+        muteobject.extra = message.author.id
+        muteobject.game = 'discord'
+        muteobject.name = message.author.username
     }
     
     if(argv.i) {
@@ -100,7 +103,7 @@ module.exports = {
              Mutes.findAll({where: muteobject}).then(collectedmutes => {
              var muteembed = new Discord.MessageEmbed()
                 .setColor('#34b5db')
-                
+                .setTitle(`The mutes of user ${muteobject.name || muteobject.userID}`)
                 .setDescription('Displays all of the mutes this user has received')
                 collectedmutes.forEach(function(item, index){
                      muteembed.addField(`**Mute nr.${index +1}**`, `On ${item.game} on cycle ${item.cycle} for ${item.muteDuration}\n**muted by** ${item.mutedBy} \n**With description:** ${item.description} \n**And extra field of:** ${item.extra} \n**On date:** ${item.createdAt}` )

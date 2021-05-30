@@ -67,6 +67,7 @@ module.exports = {
                         warnobject.cycle = element.Cycle
                         
                         Warns.create(warnobject).then(function(){
+                            discorduser.send(`You have been warned on the DJWK discord server for "${warnobject.description}" You can see your total warns in the discord server by typing !warns in the appropriate channel`)
                             return message.channel.send(`${username} has been succesfully warned by ${message.author.username}`)
                          }).catch(function(err){
                             console.log(err)

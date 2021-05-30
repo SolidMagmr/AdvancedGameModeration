@@ -91,6 +91,7 @@ module.exports = {
 
                             if(argv.t){ //When a timer is set, warn somebody for a specific time
                                 try{
+                                    discorduser.send(`You have been banned from the DJWK discord server for "${banobject.description}" your ban will last ${banobject.banDuration}`)
                                     discordmember.ban({reason: banobject.description})
                                 }
                                 catch(err){

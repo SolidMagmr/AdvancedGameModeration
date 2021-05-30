@@ -18,7 +18,7 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
 	storage: 'database.sqlite',
-	logging: false,
+	logging: false
 });
 
 const Warns = sequelize.define('warns', {
@@ -72,7 +72,7 @@ const Mutes = sequelize.define('mutes', {
 	},
 	extra: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	description: {
 		type: Sequelize.STRING,
@@ -84,7 +84,7 @@ const Mutes = sequelize.define('mutes', {
 	},
 	muteDuration: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	
 	
@@ -109,7 +109,7 @@ const Bans = sequelize.define('bans', {
 	},
 	extra: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	description: {
 		type: Sequelize.STRING,
@@ -121,7 +121,7 @@ const Bans = sequelize.define('bans', {
 	},
 	banDuration: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	
 });
